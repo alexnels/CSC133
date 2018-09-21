@@ -28,11 +28,6 @@ public class PlayerShip extends Ship implements ISteerable {
     }
 
     @Override
-    public void changeSpeed(int speedChange) {
-
-    }
-
-    @Override
     public void changeHeading(int degreeChange) {
         this.setHeading(this.getHeading() + degreeChange);
     }

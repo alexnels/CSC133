@@ -26,11 +26,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameWorld.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GameWorld.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameWorld.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3842">
-              <caret line="77" column="32" lean-forward="true" selection-start-line="77" selection-start-column="32" selection-end-line="77" selection-end-column="32" />
+            <state relative-caret-position="300">
+              <caret line="494" column="27" lean-forward="true" selection-start-line="494" selection-start-column="27" selection-end-line="494" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#937#938#0" expanded="true" />
@@ -45,8 +45,18 @@
                 <element signature="e#1201#1202#0" expanded="true" />
                 <element signature="e#7054#7055#0" expanded="true" />
                 <element signature="e#7113#7114#0" expanded="true" />
-                <element signature="e#12475#12476#0" expanded="true" />
-                <element signature="e#12532#12533#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SpaceStation.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameObject/FixedObjects/SpaceStation.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="130">
+              <caret line="9" column="32" lean-forward="true" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -68,11 +78,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlayerShip.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PlayerShip.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/Ships/PlayerShip.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="32" column="5" lean-forward="true" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
+            <state relative-caret-position="28">
+              <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#669#670#0" expanded="true" />
@@ -86,28 +96,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MissileLauncher.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/MissileLauncher.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="70">
-              <caret line="12" column="35" lean-forward="true" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MoveableObject.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObject.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
+            <state relative-caret-position="-380">
               <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#217#218#0" expanded="true" />
                 <element signature="e#255#256#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ISteerable.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/ISteerable.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="1" lean-forward="true" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -132,6 +139,18 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="299">
               <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NonPlayerShip.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/Ships/NonPlayerShip.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="232">
+              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -165,22 +184,22 @@
         <option value="$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/Ship.java" />
         <option value="$PROJECT_DIR$/src/com/mycompany/a1/GameObject/FixedObject.java" />
         <option value="$PROJECT_DIR$/src/com/mycompany/a1/GameObject/GameObject.java" />
-        <option value="$PROJECT_DIR$/src/com/mycompany/a1/GameObject/FixedObjects/SpaceStation.java" />
         <option value="$PROJECT_DIR$/src/com/mycompany/a1/GameObject/IMoveable.java" />
-        <option value="$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/ISteerable.java" />
-        <option value="$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/Ships/NonPlayerShip.java" />
-        <option value="$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/Ships/PlayerShip.java" />
         <option value="$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/Asteroid.java" />
         <option value="$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/Missile.java" />
         <option value="$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/MissileLauncher.java" />
         <option value="$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/SteerableMissileLauncher.java" />
         <option value="$PROJECT_DIR$/src/com/mycompany/a1/Game.java" />
-        <option value="$PROJECT_DIR$/src/com/mycompany/a1/GameWorld.java" />
         <option value="$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObject.java" />
+        <option value="$PROJECT_DIR$/src/com/mycompany/a1/GameWorld.java" />
+        <option value="$PROJECT_DIR$/src/com/mycompany/a1/GameObject/FixedObjects/SpaceStation.java" />
+        <option value="$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/Ships/NonPlayerShip.java" />
+        <option value="$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/ISteerable.java" />
+        <option value="$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/Ships/PlayerShip.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="834" />
     <option name="y" value="369" />
     <option name="width" value="654" />
@@ -217,6 +236,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="a1" type="462c0819:PsiDirectoryNode" />
               <item name="GameObject" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="A1Prj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="A1Prj" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="a1" type="462c0819:PsiDirectoryNode" />
+              <item name="GameObject" type="462c0819:PsiDirectoryNode" />
+              <item name="FixedObjects" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="A1Prj" type="b2602c69:ProjectViewProjectNode" />
@@ -325,7 +352,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="7" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
@@ -337,11 +364,11 @@
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.25601375" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.25601375" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18032786" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18032786" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
@@ -744,41 +771,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/ISteerable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="38" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameObject/FixedObjects/SpaceStation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#563#564#0" expanded="true" />
-            <element signature="e#595#596#0" expanded="true" />
-            <element signature="e#642#643#0" expanded="true" />
-            <element signature="e#684#685#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/Ships/NonPlayerShip.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#639#640#0" expanded="true" />
-            <element signature="e#666#667#0" expanded="true" />
-            <element signature="e#703#704#0" expanded="true" />
-            <element signature="e#735#736#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameObject/IMoveable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -808,22 +800,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/Ships/PlayerShip.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="5" lean-forward="true" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#669#670#0" expanded="true" />
-            <element signature="e#697#698#0" expanded="true" />
-            <element signature="e#736#737#0" expanded="true" />
-            <element signature="e#770#771#0" expanded="true" />
-            <element signature="e#894#895#0" expanded="true" />
-            <element signature="e#927#928#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/Game.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
@@ -847,18 +823,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#217#218#0" expanded="true" />
-            <element signature="e#255#256#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/Missile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -875,8 +839,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameWorld.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3842">
-          <caret line="77" column="32" lean-forward="true" selection-start-line="77" selection-start-column="32" selection-end-line="77" selection-end-column="32" />
+        <state relative-caret-position="300">
+          <caret line="494" column="27" lean-forward="true" selection-start-line="494" selection-start-column="27" selection-end-line="494" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#937#938#0" expanded="true" />
@@ -891,8 +855,61 @@
             <element signature="e#1201#1202#0" expanded="true" />
             <element signature="e#7054#7055#0" expanded="true" />
             <element signature="e#7113#7114#0" expanded="true" />
-            <element signature="e#12475#12476#0" expanded="true" />
-            <element signature="e#12532#12533#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameObject/FixedObjects/SpaceStation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="9" column="32" lean-forward="true" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/Ships/NonPlayerShip.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-380">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#217#218#0" expanded="true" />
+            <element signature="e#255#256#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/ISteerable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="1" lean-forward="true" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mycompany/a1/GameObject/MoveableObjects/Ships/PlayerShip.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28">
+          <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#669#670#0" expanded="true" />
+            <element signature="e#697#698#0" expanded="true" />
+            <element signature="e#736#737#0" expanded="true" />
+            <element signature="e#770#771#0" expanded="true" />
+            <element signature="e#894#895#0" expanded="true" />
+            <element signature="e#927#928#0" expanded="true" />
           </folding>
         </state>
       </provider>

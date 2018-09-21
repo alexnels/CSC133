@@ -2,6 +2,7 @@ package com.mycompany.a1;
 
 import com.mycompany.a1.GameObject.FixedObjects.SpaceStation;
 import com.mycompany.a1.GameObject.GameObject;
+import com.mycompany.a1.GameObject.IMoveable;
 import com.mycompany.a1.GameObject.MoveableObjects.Asteroid;
 import com.mycompany.a1.GameObject.MoveableObjects.Missile;
 import com.mycompany.a1.GameObject.MoveableObjects.Ships.NonPlayerShip;
@@ -19,7 +20,7 @@ public class GameWorld {
     private final int MAX_MISSILE_FUEL = 10;
     private final int ASTEROID_HIT_SCORE = 10;
     private final int NPS_HIT_SCORE = 30;
-    private final Point2D INITIAL_SHIP_LOC = new Point2D(0,0);
+    private final Point2D INITIAL_SHIP_LOC = new Point2D(512.0,384.0);
 
     private int PLAYER_SCORE = 0;
 
@@ -443,8 +444,56 @@ public class GameWorld {
         }
     }
 
+    private void moveObjects(){
+        boolean moveable = false;
+        for(GameObject moveableObj: gameObjects){
+            if(moveableObj instanceof IMoveable){
+                ((IMoveable) moveableObj).move();
+                moveable = true;
+            }
+        }
+        if(moveable)
+            System.out.println("Moved all moveable objects");
+        else
+            System.out.println("No moveable objects exist");
+    }
+
+    private void updateFuelLevels(){
+        if(missileExists()) {
+            for (GameObject missile : gameObjects) {
+                if (missile instanceof Missile) {
+                    int fuelLevel = ((Missile) missile).getFuelLevel();
+                    if (fuelLevel < 1) {
+                        gameObjects.remove(missile);
+                        System.out.println("Removed a missile that ran out of fuel");
+                    } else
+                        ((Missile) missile).setFuelLevel(fuelLevel - 1);
+                }
+            }
+        }
+        else
+            System.out.println("No missiles exist");
+    }
+
+    private void blinkSpaceStation(){
+        boolean sSExists = false;
+        for(GameObject spaceStation: gameObjects) {
+            if (spaceStation instanceof SpaceStation) {
+                ((SpaceStation) spaceStation).toggleLight();
+                sSExists = true;
+            }
+        }
+        if (sSExists)
+            System.out.println("Space station light was toggled");
+        else
+            System.out.println("No space station exists");
+    }
+
     //t
     public void gameClockTick(){
+        moveObjects();
+        updateFuelLevels();
+        blinkSpaceStation();
         System.out.println("Tick the game clock");
     }
 

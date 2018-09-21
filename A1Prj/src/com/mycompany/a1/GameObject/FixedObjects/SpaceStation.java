@@ -7,6 +7,8 @@ import com.mycompany.a1.GameObject.FixedObject;
 public class SpaceStation extends FixedObject {
 
     private int blinkRate;
+    private int tickCounter = 0;
+    private boolean lightOn;
 
     public SpaceStation(int id, int blinkRate, Point2D location) {
         super(id);
@@ -24,7 +26,13 @@ public class SpaceStation extends FixedObject {
         this.blinkRate = blinkRate;
     }
 
-    public void toggleLight(){}
+    public void toggleLight(){
+        tickCounter ++;
+
+        if((tickCounter % this.getBlinkRate()) == 0)
+            lightOn = !lightOn;
+
+    }
 
     public String toString(){
         String superToString = super.toString();
