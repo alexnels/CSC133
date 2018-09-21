@@ -9,10 +9,6 @@ public class SteerableMissileLauncher extends MissileLauncher implements ISteera
         super(location, heading, speed);
     }
 
-    public void changeSpeed(int speedChange) {
-
-    }
-
     public void changeHeading(int degreeChange) {
 
     }

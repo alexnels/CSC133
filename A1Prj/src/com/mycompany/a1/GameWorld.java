@@ -5,9 +5,11 @@ import com.mycompany.a1.GameObject.GameObject;
 import com.mycompany.a1.GameObject.IMoveable;
 import com.mycompany.a1.GameObject.MoveableObjects.Asteroid;
 import com.mycompany.a1.GameObject.MoveableObjects.Missile;
+import com.mycompany.a1.GameObject.MoveableObjects.MissileLauncher;
 import com.mycompany.a1.GameObject.MoveableObjects.Ships.NonPlayerShip;
 import com.mycompany.a1.GameObject.MoveableObjects.Ships.PlayerShip;
 import com.codename1.ui.geom.Point2D;
+import com.mycompany.a1.GameObject.MoveableObjects.SteerableMissileLauncher;
 
 import java.util.Random;
 import java.util.Vector;
@@ -143,6 +145,30 @@ public class GameWorld {
         return false;
     }
 
+    private boolean removePlayerShipMissileLauncher(){
+        for(GameObject psMissileLauncher: gameObjects) {
+            if(psMissileLauncher instanceof SteerableMissileLauncher) {
+                gameObjects.remove(psMissileLauncher);
+                System.out.println("Removed Player Ship Missile Launcher");
+                return true;
+            }
+        }
+        System.out.println("Could not remove Player Ship Missile Launcher");
+        return false;
+    }
+
+    private boolean removeNonPlayerShipMissileLauncher(){
+        for(GameObject nonPSMissileLauncher: gameObjects) {
+            if(nonPSMissileLauncher instanceof MissileLauncher) {
+                gameObjects.remove(nonPSMissileLauncher);
+                System.out.println("Removed NON-Player Ship Missile Launcher");
+                return true;
+            }
+        }
+        System.out.println("Could not remove NON-Player Ship Missile Launcher");
+        return false;
+    }
+
     private boolean playerShipExists()
     {
         boolean exists = false;
@@ -229,7 +255,9 @@ public class GameWorld {
     //s
     public void addPlayerShip(){
         PlayerShip playerShip = new PlayerShip(INITIAL_SHIP_LOC, 0, 0, MAX_PS_MISSILE, MAX_PS_LIVES);
+        SteerableMissileLauncher smLauncher = playerShip.getPlayerShipMissileLauncher();
         gameObjects.add(playerShip);
+        gameObjects.add(smLauncher);
         System.out.println("A new PLAYER SHIP has been created");
     }
 
@@ -312,10 +340,10 @@ public class GameWorld {
                         System.out.println("Player Ship is out of missiles");
                     } else {
                         ((PlayerShip) pShip).setMissileCount(numOfMissiles - 1);
-                        Missile firedMissile = new Missile(pShip.getLocation(), ((PlayerShip) pShip).getHeading(), ((PlayerShip) pShip).getSpeed(), MAX_MISSILE_FUEL);
+                        SteerableMissileLauncher  pSMissileLauncher = ((PlayerShip) pShip).getPlayerShipMissileLauncher();
+                        Missile firedMissile = new Missile(pSMissileLauncher.getLocation(), (pSMissileLauncher).getHeading(),(pSMissileLauncher).getSpeed(), MAX_MISSILE_FUEL);
                         gameObjects.add(firedMissile);
                         System.out.println("A PLAYER SHIP missile has been FIRED");
-                        return;
                     }
 
                 }
