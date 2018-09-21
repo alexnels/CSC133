@@ -327,7 +327,17 @@ public class GameWorld {
 
     //<
     public void turnMissileLauncher(){
-        System.out.println("Turn MISSILE LAUNCHER");
+        if(playerShipExists()) {
+            for (GameObject pShip : gameObjects) {
+                if (pShip instanceof PlayerShip) {
+                    SteerableMissileLauncher psMissileLauncher = ((PlayerShip) pShip).getPlayerShipMissileLauncher();
+                    psMissileLauncher.changeHeading(-15);
+                    System.out.println("MISSILE LAUNCHER turned counter-clockwise");
+                    return;
+                }
+            }
+        }
+        System.out.println("No Player Ship or Steerable Missile Launcher exist");
     }
 
     //f
@@ -344,6 +354,7 @@ public class GameWorld {
                         Missile firedMissile = new Missile(pSMissileLauncher.getLocation(), (pSMissileLauncher).getHeading(),(pSMissileLauncher).getSpeed(), MAX_MISSILE_FUEL);
                         gameObjects.add(firedMissile);
                         System.out.println("A PLAYER SHIP missile has been FIRED");
+                        return;
                     }
 
                 }
@@ -362,7 +373,8 @@ public class GameWorld {
                         System.out.println("ERROR: Non-Player Ship is out of missiles");
                     } else {
                         ((NonPlayerShip) nonPShip).setMissileCount(numOfMissiles - 1);
-                        Missile firedMissile = new Missile(nonPShip.getLocation(), ((NonPlayerShip) nonPShip).getHeading(), ((NonPlayerShip) nonPShip).getSpeed(), MAX_MISSILE_FUEL);
+                        MissileLauncher nonPSMissileLauncher = ((NonPlayerShip) nonPShip).getNonPShipMissileLauncher();
+                        Missile firedMissile = new Missile(nonPSMissileLauncher.getLocation(), nonPSMissileLauncher.getHeading(), nonPSMissileLauncher.getSpeed(), MAX_MISSILE_FUEL);
                         gameObjects.add(firedMissile);
                         System.out.println("A NON-PLAYER SHIP missile has been Launched");
                         return;

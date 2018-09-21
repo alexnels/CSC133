@@ -10,7 +10,7 @@ public class SteerableMissileLauncher extends MissileLauncher implements ISteera
     }
 
     public void changeHeading(int degreeChange) {
-
+        this.setHeading(this.getHeading() + degreeChange);
     }
 
     public String toString() {

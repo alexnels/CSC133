@@ -42,10 +42,6 @@ public class Game extends Form{
                     gw.printErrorStatement();
                     return;
                 }
-                if(!Character.isLetter(sCommand.charAt(0))){
-                    gw.printErrorStatement();
-                    return;
-                }
 
                 switch (sCommand.charAt(0))
                 {

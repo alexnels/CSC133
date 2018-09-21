@@ -14,7 +14,10 @@ public class Missile extends MoveableObject {
         this.setLocation(location);
         this.fuelLevel = fuelLevel;
         this.setColor(ColorUtil.rgb(255,0,255));
-        this.setSpeed(speed);
+        if (speed == 0)
+            this.setSpeed(4);
+        else if(speed > 0)
+            this.setSpeed(speed * 2);
     }
 
     public int getFuelLevel() {
