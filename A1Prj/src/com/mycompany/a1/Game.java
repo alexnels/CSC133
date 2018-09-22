@@ -1,5 +1,4 @@
 package com.mycompany.a1;
-
 import com.codename1.ui.Form;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
@@ -16,13 +15,14 @@ public class Game extends Form{
     private Point2D location;
     private int color;
 
-
+    //The Game() function initializes the gameWorld and creates a composition relationship
     public Game() {
         gw = new GameWorld();
         gw.init();
         play();
     }
 
+    ///The play() method handles all user input through the CN1 interface
     public void play(){
         Label myLabel = new Label("Enter a Command: ");
         this.addComponent(myLabel);
@@ -38,11 +38,14 @@ public class Game extends Form{
                 String sCommand = myTextField.getText().toString();
                 myTextField.clear();
 
+                //error checking to make sure that a character is entered
                 if(sCommand.isEmpty()){
                     System.err.println("ERROR: Invalid Input");
                     return;
                 }
 
+                //Switch statement to handle each type of user input
+                //Each case statement calls the necessary function
                 switch (sCommand.charAt(0))
                 {
                     case 'a':
@@ -145,6 +148,7 @@ public class Game extends Form{
                         gw.quitGame();
                         break;
 
+                    //If no case statement is met, default to an error message
                     default:
                         System.err.println("ERROR: Invalid Input");
                 }

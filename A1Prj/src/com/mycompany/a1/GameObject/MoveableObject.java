@@ -5,10 +5,13 @@ public abstract class MoveableObject extends GameObject implements IMoveable {
 
     private int speed, heading;
 
+    //The constructor accepts the heading variable when creating a new MoveableObject
     public MoveableObject(int heading) {
         this.heading = heading;
     }
 
+    //Called for every moveable object
+    //Updates the new location of an object based on its speed and heading
     public void move(){
 
         //get location change information based on current heading and speed
@@ -24,6 +27,8 @@ public abstract class MoveableObject extends GameObject implements IMoveable {
         this.setLocation(new Point2D(oldXLoc + newX, oldYLoc + newY));
     }
 
+    //Setter for the heading variable of a MoveableObject
+    //Changes the called objects heading, without keeping it within 0 - 359 degrees
     public void setHeading(int degreeChange){
         if (degreeChange > 360) {
             this.heading = degreeChange - 360;
@@ -36,18 +41,23 @@ public abstract class MoveableObject extends GameObject implements IMoveable {
         }
     }
 
+    //Getter for the speed variable of a MoveableObject
     public int getSpeed(){
         return speed;
     }
 
+    //Setter for the speed variable of a MoveableObject
     public void setSpeed(int speed){
         this.speed = speed;
     }
 
+    //Getter for the Heading variable of a MoveableObject
     public int getHeading(){
         return heading;
     }
 
+    //toString() method calls the super toString() method, while adding the
+    //information that is added at this level
     public String toString()
     {
         String superToString = super.toString();

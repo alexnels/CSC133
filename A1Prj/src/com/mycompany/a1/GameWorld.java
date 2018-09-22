@@ -1,5 +1,4 @@
 package com.mycompany.a1;
-
 import com.mycompany.a1.GameObject.FixedObjects.SpaceStation;
 import com.mycompany.a1.GameObject.GameObject;
 import com.mycompany.a1.GameObject.IMoveable;
@@ -10,12 +9,12 @@ import com.mycompany.a1.GameObject.MoveableObjects.Ships.NonPlayerShip;
 import com.mycompany.a1.GameObject.MoveableObjects.Ships.PlayerShip;
 import com.codename1.ui.geom.Point2D;
 import com.mycompany.a1.GameObject.MoveableObjects.SteerableMissileLauncher;
-
 import java.util.Random;
 import java.util.Vector;
 
 public class GameWorld {
 
+    //All private final data that the game needs in order to run
     private final int MAX_NPS_MISSILE = 2;
     private final int MAX_PS_MISSILE = 10;
     private final int MAX_PS_LIVES = 3;
@@ -27,14 +26,17 @@ public class GameWorld {
     private int playerScore;
     private boolean exitConfirmed = false;
 
+    //The vector of GameObjects to handle all of the game objects created and added to the game
     private Vector<GameObject> gameObjects = new Vector<>();
 
+    //Intitializing the game, will expand this further in future assignments as needed
     public void init(){
         gameTicks = 0;
         playerScore = 0;
 
     }
 
+    //This function returns a random number within the bounds it is passed (inclusive)
     private static int randomIntInRange(int lowerBound, int upperBound){
         Random rando = new Random();
         int randomInt = rando.nextInt((upperBound - lowerBound) + 1) + lowerBound;
@@ -42,10 +44,12 @@ public class GameWorld {
         return randomInt;
     }
 
+    //Generates a random heading between 0 and 359 degrees
     private int randomHeading(){
         return randomIntInRange(0,359);
     }
 
+    //Generates a random speed between 1 and 10
     private int randomSpeed(){
         return randomIntInRange(1,10);
     }
@@ -55,10 +59,12 @@ public class GameWorld {
         return (randomIntInRange(1,2))*10;
     }
 
+    //Generates a random blink rate between 1 and 4, for Space Stations
     private int randomBlinkRate(){
         return randomIntInRange(1,4);
     }
 
+    //Generates a random location on the map, within the map bounds
     private Point2D randomLocation(){
 
         Point2D loc = new Point2D(randomIntInRange(0, 1024), randomIntInRange(0,768));
@@ -91,6 +97,8 @@ public class GameWorld {
     }
     */
 
+    //Decrements the player ships lives by 1
+    //If the ship only has one life left, the game will end
     private boolean decPShipLives(){
         boolean quitGame = false;
         int numOfLives;
@@ -108,11 +116,13 @@ public class GameWorld {
                 }
             }
         }
+        //Game exits if the ship is out of lives
         if(quitGame)
             gameOver();
         return false;
     }
 
+    //Removes a Non-Player Ship from the game
     private boolean removeNPS(){
         for(GameObject nps: gameObjects) {
             if(nps instanceof NonPlayerShip) {
@@ -126,6 +136,7 @@ public class GameWorld {
         return false;
     }
 
+    //Removes an Asteroid from the game
     private boolean removeAsteroid(){
         for(GameObject asteroid: gameObjects) {
             if(asteroid instanceof Asteroid) {
@@ -138,6 +149,7 @@ public class GameWorld {
         return false;
     }
 
+    //Removes a Missile from the game
     private boolean removeMissile(){
         for(GameObject missile: gameObjects) {
             if(missile instanceof Missile) {
@@ -163,6 +175,7 @@ public class GameWorld {
         return false;
     }
 */
+    //Removes a Non-Player Ship Missile Launcher from the game
     private boolean removeNonPlayerShipMissileLauncher(){
         for(GameObject nonPSMissileLauncher: gameObjects) {
             if(nonPSMissileLauncher instanceof MissileLauncher) {
@@ -175,6 +188,8 @@ public class GameWorld {
         return false;
     }
 
+    //Returns true if a Player Ship exists within the game
+    //Returns false if no Player Ship exists
     private boolean playerShipExists()
     {
         boolean exists = false;
@@ -188,6 +203,7 @@ public class GameWorld {
         return exists;
     }
 
+    //Checks to see if a Missile exists withing the game
     private boolean missileExists()
     {
         boolean exists = false;
@@ -201,6 +217,7 @@ public class GameWorld {
         return exists;
     }
 
+    //Checks to see if a Non-Player Ship exists within the game
     private boolean nonPShipExists()
     {
         boolean exists = false;
@@ -214,6 +231,7 @@ public class GameWorld {
         return exists;
     }
 
+    //Checks to see if an Asteroid exists within the game
     private boolean asteroidExists()
     {
         boolean exists = false;
@@ -227,7 +245,8 @@ public class GameWorld {
         return exists;
     }
 
-
+    //This function is called when the player runs out of lives
+    //It gives them the option to quit, and removes all the old game objects from the game world
     private void gameOver(){
         System.out.println("===========================================");
         System.err.println("GAME OVER");
@@ -236,128 +255,8 @@ public class GameWorld {
         gameObjects.removeAllElements();
     }
 
-
-
-
-
-    //a
-    public void addNewAsteroid(){
-        Asteroid asteroid = new Asteroid(10, randomLocation(), randomHeading(), randomSpeed());
-        gameObjects.add(asteroid);
-        System.out.println("A new ASTEROID has been created");
-    }
-
-    //y
-    public void addNonPlayerShip(){
-        NonPlayerShip nps = new NonPlayerShip(randomSize(), randomLocation(), randomHeading(), randomSpeed(), MAX_NPS_MISSILE);
-        MissileLauncher nonPSLauncher = nps.getNonPShipMissileLauncher();
-        gameObjects.add(nps);
-        gameObjects.add(nonPSLauncher);
-        System.out.println("A new NON-PLAYER SHIP has been created");
-    }
-
-    //b
-    public void addSpaceStation(){
-        SpaceStation spaceStation = new SpaceStation(001, randomBlinkRate(), randomLocation());
-        gameObjects.add(spaceStation);
-        System.out.println("A new SPACE STATION has been created");
-    }
-
-    //s
-    public void addPlayerShip(){
-        if(!playerShipExists()) {
-            PlayerShip playerShip = new PlayerShip(INITIAL_SHIP_LOC, 0, 0, MAX_PS_MISSILE, MAX_PS_LIVES);
-            SteerableMissileLauncher smLauncher = playerShip.getPlayerShipMissileLauncher();
-            gameObjects.add(playerShip);
-            gameObjects.add(smLauncher);
-            System.out.println("A new PLAYER SHIP has been created");
-        }
-        else
-            System.err.println("A Player Ship already exists");
-    }
-
-    //i
-    public void increasePSSpeed(){
-        if(playerShipExists()) {
-            for (GameObject pShip : gameObjects) {
-                if (pShip instanceof PlayerShip) {
-                    int currSpeed = ((PlayerShip) pShip).getSpeed();
-                    if (currSpeed > 8) {
-                        System.out.println("Cannot increase Player Ship speed.");
-                    } else {
-                        ((PlayerShip) pShip).setSpeed(currSpeed + 2);
-                        System.out.println("PLAYER SHIP speed has been INCREASED");
-                    }
-                }
-            }
-        }
-        else
-            System.err.println("Could not increase Player Ship speed");
-    }
-
-    //d
-    public void decreasePSSpeed(){
-        if(playerShipExists()) {
-            for (GameObject pShip : gameObjects) {
-                if (pShip instanceof PlayerShip) {
-                    int currSpeed = ((PlayerShip) pShip).getSpeed();
-
-                    if (currSpeed < 2) {
-                        System.out.println("Cannot decrease Player Ship speed.");
-                    } else {
-                        ((PlayerShip) pShip).setSpeed(currSpeed - 2);
-                        System.out.println("PLAYER SHIP speed has been DECREASED");
-                    }
-                }
-            }
-        }
-        else
-            System.err.println("Could not decrease Player Ship speed");
-    }
-
-    //l
-    public void turnPSLeft(){
-        if(playerShipExists()) {
-            for (GameObject pShip : gameObjects) {
-                if (pShip instanceof PlayerShip) {
-                    ((PlayerShip) pShip).changeHeading(-15);
-                    System.out.println("Turn player ship LEFT");
-                }
-            }
-        }
-        else
-            System.err.println("Could not turn Player Ship Left");
-    }
-
-    //r
-    public void turnPSRight() {
-        if (playerShipExists()) {
-            for (GameObject pShip : gameObjects) {
-                if (pShip instanceof PlayerShip) {
-                    ((PlayerShip) pShip).changeHeading(15);
-                    System.out.println("Turn player ship RIGHT");
-                    return;
-                }
-            }
-        } else
-            System.err.println("Could not turn Player Ship right");
-    }
-
-    //<
-    public void turnMissileLauncher(){
-        if(playerShipExists()) {
-            for (GameObject pShip : gameObjects) {
-                if (pShip instanceof PlayerShip) {
-                    SteerableMissileLauncher psMissileLauncher = ((PlayerShip) pShip).getPlayerShipMissileLauncher();
-                    psMissileLauncher.changeHeading(-15);
-                    System.out.println("MISSILE LAUNCHER turned counter-clockwise");
-                }
-            }
-        }
-        else
-            System.err.println("Could not turn the Player Missile Launcher");
-    }
-
+    //This function checks if a Player Ship exists,
+    // if it does, the Player Ships index will be returned
     private int getPlayerShipIndex(){
         int pSLocation = 0;
         for (GameObject pShip : gameObjects) {
@@ -368,6 +267,7 @@ public class GameWorld {
         return pSLocation;
     }
 
+    //Returns the index of the non-player ship if one exists
     private int getNonPlayerShipIndex(){
         int nonPSLocation = 0;
         for (GameObject nonPShip : gameObjects) {
@@ -390,6 +290,7 @@ public class GameWorld {
     }
     */
 
+    //Returns the index of the steerable missile launcher
     private int getMissileIndex(){
         int missileIndex = 0;
         for (GameObject missile : gameObjects) {
@@ -400,6 +301,143 @@ public class GameWorld {
         return missileIndex;
     }
 
+
+    //================================================================================================================
+    //
+    // This begins the section of required functions to support user commands
+    //
+    //================================================================================================================
+
+    //Adds a new asteroid to the game world
+    //a
+    public void addNewAsteroid(){
+        Asteroid asteroid = new Asteroid(10, randomLocation(), randomHeading(), randomSpeed());
+        gameObjects.add(asteroid);
+        System.out.println("A new ASTEROID has been created");
+    }
+
+    //Adds a Non-Player Ship to the game world
+    //y
+    public void addNonPlayerShip(){
+        NonPlayerShip nps = new NonPlayerShip(randomSize(), randomLocation(), randomHeading(), randomSpeed(), MAX_NPS_MISSILE);
+        MissileLauncher nonPSLauncher = nps.getNonPShipMissileLauncher();
+        gameObjects.add(nps);
+        gameObjects.add(nonPSLauncher);
+        System.out.println("A new NON-PLAYER SHIP has been created");
+    }
+
+    //Adds a Space Station to the game  world
+    //b
+    public void addSpaceStation(){
+        SpaceStation spaceStation = new SpaceStation(001, randomBlinkRate(), randomLocation());
+        gameObjects.add(spaceStation);
+        System.out.println("A new SPACE STATION has been created");
+    }
+
+    //Checks to see if a Player Ship already exists within the game world
+    //If no Player Ship exists, then it will create one
+    //s
+    public void addPlayerShip(){
+        if(!playerShipExists()) {
+            PlayerShip playerShip = new PlayerShip(INITIAL_SHIP_LOC, 0, 0, MAX_PS_MISSILE, MAX_PS_LIVES);
+            SteerableMissileLauncher smLauncher = playerShip.getPlayerShipMissileLauncher();
+            gameObjects.add(playerShip);
+            gameObjects.add(smLauncher);
+            System.out.println("A new PLAYER SHIP has been created");
+        }
+        else
+            System.err.println("A Player Ship already exists");
+    }
+
+    //Increases the Player Ship speed, up to 10
+    //i
+    public void increasePSSpeed(){
+        if(playerShipExists()) {
+            for (GameObject pShip : gameObjects) {
+                if (pShip instanceof PlayerShip) {
+                    int currSpeed = ((PlayerShip) pShip).getSpeed();
+                    if (currSpeed > 8) {
+                        System.out.println("Cannot increase Player Ship speed.");
+                    } else {
+                        ((PlayerShip) pShip).setSpeed(currSpeed + 2);
+                        System.out.println("PLAYER SHIP speed has been INCREASED");
+                    }
+                }
+            }
+        }
+        else
+            System.err.println("Could not increase Player Ship speed");
+    }
+
+    //Decrease the player ship speed, as low as 0
+    //d
+    public void decreasePSSpeed(){
+        if(playerShipExists()) {
+            for (GameObject pShip : gameObjects) {
+                if (pShip instanceof PlayerShip) {
+                    int currSpeed = ((PlayerShip) pShip).getSpeed();
+
+                    if (currSpeed < 2) {
+                        System.out.println("Cannot decrease Player Ship speed.");
+                    } else {
+                        ((PlayerShip) pShip).setSpeed(currSpeed - 2);
+                        System.out.println("PLAYER SHIP speed has been DECREASED");
+                    }
+                }
+            }
+        }
+        else
+            System.err.println("Could not decrease Player Ship speed");
+    }
+
+    //Turns the player ships heading by -15 degrees (left)
+    //l
+    public void turnPSLeft(){
+        if(playerShipExists()) {
+            for (GameObject pShip : gameObjects) {
+                if (pShip instanceof PlayerShip) {
+                    ((PlayerShip) pShip).changeHeading(-15);
+                    System.out.println("Turn player ship LEFT");
+                }
+            }
+        }
+        else
+            System.err.println("Could not turn Player Ship Left");
+    }
+
+    //Turns the Player Ships heading by 15 degrees (right)
+    //r
+    public void turnPSRight() {
+        if (playerShipExists()) {
+            for (GameObject pShip : gameObjects) {
+                if (pShip instanceof PlayerShip) {
+                    ((PlayerShip) pShip).changeHeading(15);
+                    System.out.println("Turn player ship RIGHT");
+                    return;
+                }
+            }
+        } else
+            System.err.println("Could not turn Player Ship right");
+    }
+
+    //Turns the Steerable Missile Launcher counter clockwise by 15 degrees (left)
+    //<
+    public void turnMissileLauncher(){
+        if(playerShipExists()) {
+            for (GameObject pShip : gameObjects) {
+                if (pShip instanceof PlayerShip) {
+                    SteerableMissileLauncher psMissileLauncher = ((PlayerShip) pShip).getPlayerShipMissileLauncher();
+                    psMissileLauncher.changeHeading(-15);
+                    System.out.println("MISSILE LAUNCHER turned counter-clockwise");
+                }
+            }
+        }
+        else
+            System.err.println("Could not turn the Player Missile Launcher");
+    }
+
+    //Fires a Player Ship Missile, after checking that it has enough missiles,
+    //adds the Missile to the game world, and decrements the missileCount by 1
     //f
     public void firePSMissile(){
         if(playerShipExists()) {
@@ -420,6 +458,7 @@ public class GameWorld {
             System.err.println("Could not fire a Player Ship Missile");
     }
 
+    //Launches a Non-Player Ship missile and decrements the missileCount of that NPS
     //L
     public void launchNPSMissile(){
         if(nonPShipExists()) {
@@ -440,6 +479,7 @@ public class GameWorld {
             System.err.println("Could not fire a Non-Player Ship Missile");
     }
 
+    //Navigates the PS and SteerableMissileLauncher to the Origin coordinates
     //j
     public void jumpHyperspace(){
         if(playerShipExists()) {
@@ -456,6 +496,7 @@ public class GameWorld {
             System.err.println("Could not JUMP through hyperspace");
     }
 
+    //Sets the Player Ship MissileCount to 10
     //n
     public void reloadPSMissiles(){
         if(playerShipExists()) {
@@ -470,6 +511,7 @@ public class GameWorld {
             System.err.println("Could not reload Player Ship missiles");
     }
 
+    //Removes an asteroid and a missile when they collide
     //k
     public void asteroidHit(){
         if( asteroidExists() & missileExists()) {
@@ -482,6 +524,7 @@ public class GameWorld {
             System.err.println("Could not hit Asteroid with a Player Ship Missile");
     }
 
+    //Removes a Missile and Non-Player Ship when they collide
     //e
     public void nonPSHit(){
         if(nonPShipExists() & missileExists()) {
@@ -494,6 +537,7 @@ public class GameWorld {
             System.err.println("Could not hit a Non-Player Ship with a Player Ship Missile");
     }
 
+    //Decrements a life from the player ship and removes a missile when they collide
     //E
     public void playerShipHit(){
         if(playerShipExists() & missileExists()) {
@@ -505,6 +549,7 @@ public class GameWorld {
             System.err.println("Could not hit a Player Ship with a Non-Player Ship Missile");
     }
 
+    //Removes a life from the player ship when it crashes into an asteroid
     //c
     public void playerShipCrashed(){
         if( asteroidExists() & playerShipExists()) {
@@ -516,6 +561,7 @@ public class GameWorld {
             System.err.println("Could not hit a Player Ship with an Asteroid");
     }
 
+    //Removes a player ship life and a non-player ship when they collide
     //h
     public void playerShipHitNPS(){
         if( nonPShipExists() & playerShipExists()) {
@@ -528,6 +574,7 @@ public class GameWorld {
 
     }
 
+    //Removes two asteroids when they collide
     //x
     public void asteroidsCollide(){
         if(asteroidExists()){
@@ -544,6 +591,7 @@ public class GameWorld {
             System.err.println("Could crash two Asteroids together");
     }
 
+    //Removes a non-player ship and an asteroid when they collide
     //I
     public void asteroidHitNPS(){
         if( nonPShipExists() & asteroidExists()) {
@@ -555,6 +603,7 @@ public class GameWorld {
             System.err.println("Could not hit a Non-Player Ship with an Asteroid");
     }
 
+    //Moves all objects that are able to be moved, when the game clock is ticked
     private void moveObjects(){
         boolean moveable = false;
         for(GameObject moveableObj: gameObjects){
@@ -564,6 +613,7 @@ public class GameWorld {
             }
         }
         if(moveable) {
+            //This insures that the player ship and its missile launcher stay at the same location after they have moved
             if(playerShipExists()){
                 for (GameObject pShip : gameObjects) {
                     if (pShip instanceof PlayerShip) {
@@ -578,6 +628,7 @@ public class GameWorld {
             System.out.println("No moveable objects exist");
     }
 
+    //updates the fuel levels in the missiles that exist in the game world
     private void updateFuelLevels(){
         if(missileExists()){
             Missile missile = (Missile) gameObjects.get(getMissileIndex());
@@ -592,6 +643,7 @@ public class GameWorld {
             System.out.println("No missiles exist");
     }
 
+    //Calls the Space Station function to blink its light depending on its generated peroid
     private void blinkSpaceStation(){
         boolean sSExists = false;
         for(GameObject spaceStation: gameObjects) {
@@ -606,6 +658,7 @@ public class GameWorld {
             System.out.println("No space station exists");
     }
 
+    //Calls functions necessary to update the game after a tick has passed
     //t
     public void gameClockTick(){
         System.out.println("Ticking the game clock");
@@ -616,6 +669,7 @@ public class GameWorld {
         gameTicks++;
     }
 
+    //Prints a display of the game information: points, missiles, and time
     //p
     public void printDisplay(){
         int psIndex, missileCount = -1;
@@ -630,6 +684,7 @@ public class GameWorld {
                          + "====================================================================");
     }
 
+    //Prints all of the toString() objects that exist in the game world
     //m
     public void printMap(){
         System.out.println("====================================================================\n"
@@ -641,6 +696,7 @@ public class GameWorld {
         System.out.println("====================================================================\n");
     }
 
+    //Quits the game and removes all game elements
     //q
     public void quitGame(){
         System.out.println("Exiting the game");
