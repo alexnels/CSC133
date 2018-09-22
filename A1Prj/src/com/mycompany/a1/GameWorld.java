@@ -23,6 +23,7 @@ public class GameWorld {
     private final int ASTEROID_HIT_SCORE = 10;
     private final int NPS_HIT_SCORE = 30;
     private final Point2D INITIAL_SHIP_LOC = new Point2D(512.0,384.0);
+    private int gameTicks = 0;
 
     private int PLAYER_SCORE = 0;
 
@@ -254,75 +255,82 @@ public class GameWorld {
 
     //s
     public void addPlayerShip(){
-        PlayerShip playerShip = new PlayerShip(INITIAL_SHIP_LOC, 0, 0, MAX_PS_MISSILE, MAX_PS_LIVES);
-        SteerableMissileLauncher smLauncher = playerShip.getPlayerShipMissileLauncher();
-        gameObjects.add(playerShip);
-        gameObjects.add(smLauncher);
-        System.out.println("A new PLAYER SHIP has been created");
+        if(!playerShipExists()) {
+            PlayerShip playerShip = new PlayerShip(INITIAL_SHIP_LOC, 0, 0, MAX_PS_MISSILE, MAX_PS_LIVES);
+            SteerableMissileLauncher smLauncher = playerShip.getPlayerShipMissileLauncher();
+            gameObjects.add(playerShip);
+            gameObjects.add(smLauncher);
+            System.out.println("A new PLAYER SHIP has been created");
+        }
+        else
+            System.err.println("A Player Ship already exists");
     }
 
     //i
     public void increasePSSpeed(){
-        for(GameObject pShip: gameObjects) {
-            if(pShip instanceof PlayerShip) {
-                int currSpeed = ((PlayerShip) pShip).getSpeed();
-
-                if(currSpeed > 8) {
-                    System.out.println("Cannot increase Player Ship speed.");
-                    return;
-                }
-                else {
-                    ((PlayerShip) pShip).setSpeed(currSpeed + 2);
-                    System.out.println("PLAYER SHIP speed has been INCREASED");
-                    return;
+        if(playerShipExists()) {
+            for (GameObject pShip : gameObjects) {
+                if (pShip instanceof PlayerShip) {
+                    int currSpeed = ((PlayerShip) pShip).getSpeed();
+                    if (currSpeed > 8) {
+                        System.out.println("Cannot increase Player Ship speed.");
+                    } else {
+                        ((PlayerShip) pShip).setSpeed(currSpeed + 2);
+                        System.out.println("PLAYER SHIP speed has been INCREASED");
+                    }
                 }
             }
         }
-        System.out.println("No PLAYER SHIP has yet been created");
+        else
+            System.err.println("Could not increase Player Ship speed");
     }
 
     //d
     public void decreasePSSpeed(){
-        for(GameObject pShip: gameObjects) {
-            if(pShip instanceof PlayerShip) {
-                int currSpeed = ((PlayerShip) pShip).getSpeed();
+        if(playerShipExists()) {
+            for (GameObject pShip : gameObjects) {
+                if (pShip instanceof PlayerShip) {
+                    int currSpeed = ((PlayerShip) pShip).getSpeed();
 
-                if(currSpeed < 2) {
-                    System.out.println("Cannot decrease Player Ship speed.");
-                    return;
-                }
-                else {
-                    ((PlayerShip) pShip).setSpeed(currSpeed - 2);
-                    System.out.println("PLAYER SHIP speed has been DECREASED");
-                    return;
+                    if (currSpeed < 2) {
+                        System.out.println("Cannot decrease Player Ship speed.");
+                    } else {
+                        ((PlayerShip) pShip).setSpeed(currSpeed - 2);
+                        System.out.println("PLAYER SHIP speed has been DECREASED");
+                    }
                 }
             }
         }
-        System.out.println("No PLAYER SHIP has yet been created");
+        else
+            System.err.println("Could not decrease Player Ship speed");
     }
 
     //l
     public void turnPSLeft(){
-        for(GameObject pShip: gameObjects) {
-            if(pShip instanceof PlayerShip) {
-                ((PlayerShip) pShip).changeHeading(-15);
-                System.out.println("Turn player ship LEFT");
-                return;
+        if(playerShipExists()) {
+            for (GameObject pShip : gameObjects) {
+                if (pShip instanceof PlayerShip) {
+                    ((PlayerShip) pShip).changeHeading(-15);
+                    System.out.println("Turn player ship LEFT");
+                }
             }
         }
-        System.out.println("No PLAYER SHIP has yet been created");
+        else
+            System.err.println("Could not turn Player Ship Left");
     }
 
     //r
-    public void turnPSRight(){
-        for(GameObject pShip: gameObjects) {
-            if(pShip instanceof PlayerShip) {
-                ((PlayerShip) pShip).changeHeading(15);
-                System.out.println("Turn player ship RIGHT");
-                return;
+    public void turnPSRight() {
+        if (playerShipExists()) {
+            for (GameObject pShip : gameObjects) {
+                if (pShip instanceof PlayerShip) {
+                    ((PlayerShip) pShip).changeHeading(15);
+                    System.out.println("Turn player ship RIGHT");
+                    return;
+                }
             }
-        }
-        System.out.println("No PLAYER SHIP has yet been created");
+        } else
+            System.err.println("Could not turn Player Ship right");
     }
 
     //<
@@ -333,57 +341,91 @@ public class GameWorld {
                     SteerableMissileLauncher psMissileLauncher = ((PlayerShip) pShip).getPlayerShipMissileLauncher();
                     psMissileLauncher.changeHeading(-15);
                     System.out.println("MISSILE LAUNCHER turned counter-clockwise");
-                    return;
                 }
             }
         }
-        System.out.println("No Player Ship or Steerable Missile Launcher exist");
+        else
+            System.err.println("Could not turn the Player Missile Launcher");
+    }
+
+    private int getPlayerShipIndex(){
+        int pSLocation = 0;
+        for (GameObject pShip : gameObjects) {
+            if (pShip instanceof PlayerShip) {
+                pSLocation = gameObjects.indexOf(pShip);
+            }
+        }
+        return pSLocation;
+    }
+
+    private int getNonPlayerShipIndex(){
+        int nonPSLocation = 0;
+        for (GameObject nonPShip : gameObjects) {
+            if (nonPShip instanceof NonPlayerShip) {
+                nonPSLocation = gameObjects.indexOf(nonPShip);
+            }
+        }
+        return nonPSLocation;
+    }
+
+    private int getAsteroidIndex(){
+        int asteroidIndex = 0;
+        for (GameObject asteroid : gameObjects) {
+            if (asteroid instanceof Asteroid) {
+                asteroidIndex = gameObjects.indexOf(asteroid);
+            }
+        }
+        return asteroidIndex;
+    }
+
+    private int getMissileIndex(){
+        int missileIndex = 0;
+        for (GameObject missile : gameObjects) {
+            if (missile instanceof Missile) {
+                missileIndex = gameObjects.indexOf(missile);
+            }
+        }
+        return missileIndex;
     }
 
     //f
     public void firePSMissile(){
         if(playerShipExists()) {
-            for (GameObject pShip : gameObjects) {
-                if (pShip instanceof PlayerShip) {
-                    int numOfMissiles = ((PlayerShip) pShip).getMissileCount();
-                    if (numOfMissiles < 1) {
-                        System.out.println("Player Ship is out of missiles");
-                    } else {
-                        ((PlayerShip) pShip).setMissileCount(numOfMissiles - 1);
-                        SteerableMissileLauncher  pSMissileLauncher = ((PlayerShip) pShip).getPlayerShipMissileLauncher();
-                        Missile firedMissile = new Missile(pSMissileLauncher.getLocation(), (pSMissileLauncher).getHeading(),(pSMissileLauncher).getSpeed(), MAX_MISSILE_FUEL);
-                        gameObjects.add(firedMissile);
-                        System.out.println("A PLAYER SHIP missile has been FIRED");
-                        return;
-                    }
-
-                }
+            int psIndex = getPlayerShipIndex();
+            PlayerShip pShip = (PlayerShip) gameObjects.get(psIndex);
+            int numOfMissiles = pShip.getMissileCount();
+            if (numOfMissiles < 1)
+                System.err.println("Player Ship is out of missiles, could not fire");
+            else {
+                pShip.setMissileCount(numOfMissiles - 1);
+                SteerableMissileLauncher  pSMissileLauncher = pShip.getPlayerShipMissileLauncher();
+                Missile firedMissile = new Missile(pSMissileLauncher.getLocation(), (pSMissileLauncher).getHeading(),(pSMissileLauncher).getSpeed(), MAX_MISSILE_FUEL);
+                gameObjects.add(firedMissile);
+                System.out.println("A PLAYER SHIP missile has been FIRED");
             }
         }
-        System.err.println("Could not fire a Player Ship Missile");
+        else
+            System.err.println("Could not fire a Player Ship Missile");
     }
 
     //L
     public void launchNPSMissile(){
         if(nonPShipExists()) {
-            for (GameObject nonPShip : gameObjects) {
-                if (nonPShip instanceof NonPlayerShip) {
-                    int numOfMissiles = ((NonPlayerShip) nonPShip).getMissileCount();
-                    if (numOfMissiles < 1) {
-                        System.out.println("ERROR: Non-Player Ship is out of missiles");
-                    } else {
-                        ((NonPlayerShip) nonPShip).setMissileCount(numOfMissiles - 1);
-                        MissileLauncher nonPSMissileLauncher = ((NonPlayerShip) nonPShip).getNonPShipMissileLauncher();
-                        Missile firedMissile = new Missile(nonPSMissileLauncher.getLocation(), nonPSMissileLauncher.getHeading(), nonPSMissileLauncher.getSpeed(), MAX_MISSILE_FUEL);
-                        gameObjects.add(firedMissile);
-                        System.out.println("A NON-PLAYER SHIP missile has been Launched");
-                        return;
-                    }
-
-                }
+            int nonPSIndex = getNonPlayerShipIndex();
+            NonPlayerShip nonPShip = (NonPlayerShip) gameObjects.get(nonPSIndex);
+            int numOfMissiles = nonPShip.getMissileCount();
+            if (numOfMissiles < 1)
+                System.err.println("Non-Player Ship is out of missiles, could not fire");
+            else {
+                nonPShip.setMissileCount(numOfMissiles - 1);
+                MissileLauncher nonPSMissileLauncher = nonPShip.getNonPShipMissileLauncher();
+                Missile firedMissile = new Missile(nonPSMissileLauncher.getLocation(), nonPSMissileLauncher.getHeading(), nonPSMissileLauncher.getSpeed(), MAX_MISSILE_FUEL);
+                gameObjects.add(firedMissile);
+                System.out.println("A NON-PLAYER SHIP missile has been Launched");
             }
         }
-        System.err.println("Could not fire a Non-Player Ship Missile");
+        else
+            System.err.println("Could not fire a Non-Player Ship Missile");
     }
 
     //j
@@ -392,17 +434,19 @@ public class GameWorld {
             for(GameObject pShip: gameObjects) {
                 if(pShip instanceof PlayerShip) {
                     pShip.setLocation(INITIAL_SHIP_LOC);
+                    SteerableMissileLauncher  pSMissileLauncher = ((PlayerShip) pShip).getPlayerShipMissileLauncher();
+                    pSMissileLauncher.setLocation(INITIAL_SHIP_LOC);
                     System.out.println("Player Ship has JUMPED through hyperspace");
-                    return;
                 }
             }
         }
-        System.err.println("Could not JUMP through hyperspace");
+        else
+            System.err.println("Could not JUMP through hyperspace");
     }
 
     //n
     public void reloadPSMissiles(){
-        if( playerShipExists()) {
+        if(playerShipExists()) {
             for (GameObject pShip : gameObjects) {
                 if (pShip instanceof PlayerShip) {
                     ((PlayerShip) pShip).setMissileCount(MAX_PS_MISSILE);
@@ -410,7 +454,8 @@ public class GameWorld {
                 }
             }
         }
-        System.err.println("Could not reload Player Ship missiles");
+        else
+            System.err.println("Could not reload Player Ship missiles");
     }
 
     //k
@@ -421,6 +466,8 @@ public class GameWorld {
             PLAYER_SCORE += ASTEROID_HIT_SCORE;
             System.out.println("Asteroid was HIT by PS MISSILE");
         }
+        else
+            System.err.println("Could not hit Asteroid with a Player Ship Missile");
     }
 
     //e
@@ -431,6 +478,8 @@ public class GameWorld {
             PLAYER_SCORE += NPS_HIT_SCORE;
             System.out.println("NON-PLAYER SHIP was hit by PS MISSILE");
         }
+        else
+            System.err.println("Could not hit a Non-Player Ship with a Player Ship Missile");
     }
 
     //E
@@ -440,6 +489,8 @@ public class GameWorld {
             if (decPShipLives())
                 System.out.println("NON-PLAYER SHIP MISSILE hit PLAYER SHIP");
         }
+        else
+            System.err.println("Could not hit a Player Ship with a Non-Player Ship Missile");
     }
 
     //c
@@ -449,6 +500,8 @@ public class GameWorld {
             if(decPShipLives())
                 System.out.println("PLAYER SHIP hit an ASTEROID");
         }
+        else
+            System.err.println("Could not hit a Player Ship with an Asteroid");
     }
 
     //h
@@ -456,9 +509,11 @@ public class GameWorld {
         if( nonPShipExists() & playerShipExists()) {
             removeNPS();
             if(decPShipLives())
-                System.out.println("PLAYER SHIP hit an ASTEROID");
+                System.out.println("PLAYER SHIP hit a NON-PLAYER SHIP");
         }
-        System.out.println("PLAYER SHIP hit a NON-PLAYER SHIP");
+        else
+            System.err.println("Could not hit a Player Ship with a Non-Player Ship");
+
     }
 
     //x
@@ -470,8 +525,11 @@ public class GameWorld {
                 removeAsteroid();
                 System.out.println("Two ASTEROIDs collided");
             }
-            System.out.println("Only one ASTEROID was removed");
+            else
+                System.err.println("Only one ASTEROID was removed");
         }
+        else
+            System.err.println("Could crash two Asteroids together");
     }
 
     //I
@@ -479,9 +537,10 @@ public class GameWorld {
         if( nonPShipExists() & asteroidExists()) {
             removeNPS();
             removeAsteroid();
-            System.out.println("PLAYER SHIP hit a NON-PLAYER SHIP");
             System.out.println("ASTEROID impacted a NON-PLAYER SHIP");
         }
+        else
+            System.err.println("Could not hit a Non-Player Ship with an Asteroid");
     }
 
     private void moveObjects(){
@@ -492,24 +551,30 @@ public class GameWorld {
                 moveable = true;
             }
         }
-        if(moveable)
+        if(moveable) {
+            if(playerShipExists()){
+                for (GameObject pShip : gameObjects) {
+                    if (pShip instanceof PlayerShip) {
+                        SteerableMissileLauncher psMissileLauncher = ((PlayerShip) pShip).getPlayerShipMissileLauncher();
+                        psMissileLauncher.setLocation(pShip.getLocation());
+                    }
+                }
+            }
             System.out.println("Moved all moveable objects");
+        }
         else
             System.out.println("No moveable objects exist");
     }
 
     private void updateFuelLevels(){
-        if(missileExists()) {
-            for (GameObject missile : gameObjects) {
-                if (missile instanceof Missile) {
-                    int fuelLevel = ((Missile) missile).getFuelLevel();
-                    if (fuelLevel < 1) {
-                        gameObjects.remove(missile);
-                        System.out.println("Removed a missile that ran out of fuel");
-                    } else
-                        ((Missile) missile).setFuelLevel(fuelLevel - 1);
-                }
-            }
+        if(missileExists()){
+            Missile missile = (Missile) gameObjects.get(getMissileIndex());
+            int fuelLevel = missile.getFuelLevel();
+            if (fuelLevel <= 1) {
+                gameObjects.remove(missile);
+                System.out.println("\tRemoved a missile that ran out of fuel");
+            } else
+                missile.setFuelLevel(fuelLevel - 1);
         }
         else
             System.out.println("No missiles exist");
@@ -531,16 +596,26 @@ public class GameWorld {
 
     //t
     public void gameClockTick(){
+        System.out.println("Ticking the game clock");
+        System.out.println("====================================================================");
         moveObjects();
         updateFuelLevels();
         blinkSpaceStation();
-        System.out.println("Tick the game clock");
+        gameTicks++;
     }
 
     //p
     public void printDisplay(){
-        System.out.println("Print a display of current game states");
-
+        int psIndex, missileCount = -1;
+        if (playerShipExists()) {
+            psIndex = getPlayerShipIndex();
+            PlayerShip pShip = (PlayerShip) gameObjects.get(psIndex);
+            missileCount = pShip.getMissileCount();
+        }
+        System.out.println("====================================================================\n"
+                         + "======================= Current Game States: =======================\n"
+                         + "=======  Points: " + PLAYER_SCORE + "  =======  Missiles: " + missileCount + "  =======  Time: " + gameTicks + "  =======\n"
+                         + "====================================================================");
     }
 
     //m
@@ -551,6 +626,7 @@ public class GameWorld {
         for(GameObject gObj: gameObjects) {
             System.out.println(gObj.toString());
         }
+        System.out.println("====================================================================\n");
     }
 
     //q

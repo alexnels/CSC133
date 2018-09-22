@@ -21,7 +21,7 @@ public abstract class Ship extends MoveableObject {
 
     public String toString(){
         String superToString = super.toString();
-        String missileCount = " MissileCount:" + this.getMissileCount();
+        String missileCount = " MissileCount: " + this.getMissileCount();
         return superToString + missileCount;
     }
 }

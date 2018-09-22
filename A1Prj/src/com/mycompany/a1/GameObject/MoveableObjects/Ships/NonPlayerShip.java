@@ -2,11 +2,10 @@ package com.mycompany.a1.GameObject.MoveableObjects.Ships;
 
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.geom.Point2D;
-import com.mycompany.a1.GameObject.MoveableObjects.ISteerable;
 import com.mycompany.a1.GameObject.MoveableObjects.MissileLauncher;
 import com.mycompany.a1.GameObject.MoveableObjects.Ship;
 
-public class NonPlayerShip extends Ship implements ISteerable{
+public class NonPlayerShip extends Ship{
 
     private int size;
     private MissileLauncher nonPShipMissileLauncher;
@@ -36,11 +35,6 @@ public class NonPlayerShip extends Ship implements ISteerable{
 
     public void setSize(int size) {
         this.size = size;
-    }
-
-    public void changeHeading(int degreeChange) {
-        this.setHeading(this.getHeading() + degreeChange);
-
     }
 
     @Override

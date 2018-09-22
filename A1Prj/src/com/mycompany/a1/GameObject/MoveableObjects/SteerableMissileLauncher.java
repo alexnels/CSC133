@@ -6,7 +6,7 @@ import com.mycompany.a1.GameObject.MoveableObject;
 public class SteerableMissileLauncher extends MissileLauncher implements ISteerable {
 
     public SteerableMissileLauncher(Point2D location, int heading, int speed) {
-        super(location, heading, speed);
+        super(location, heading, 0);
     }
 
     public void changeHeading(int degreeChange) {
