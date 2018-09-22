@@ -23,18 +23,16 @@ public class GameWorld {
     private final int ASTEROID_HIT_SCORE = 10;
     private final int NPS_HIT_SCORE = 30;
     private final Point2D INITIAL_SHIP_LOC = new Point2D(512.0,384.0);
-    private int gameTicks = 0;
+    private int gameTicks;
+    private int playerScore;
+    private boolean exitConfirmed = false;
 
-    private int PLAYER_SCORE = 0;
-
-    Vector<GameObject> gameObjects = new Vector<>();
+    private Vector<GameObject> gameObjects = new Vector<>();
 
     public void init(){
+        gameTicks = 0;
+        playerScore = 0;
 
-    }
-
-    public void printErrorStatement(){
-        System.err.println("ERROR: Invalid input");
     }
 
     private static int randomIntInRange(int lowerBound, int upperBound){
@@ -67,6 +65,7 @@ public class GameWorld {
         return loc;
     }
 
+    /*
     private boolean removePS(){
         for(GameObject pShip: gameObjects) {
             if(pShip instanceof PlayerShip) {
@@ -90,23 +89,27 @@ public class GameWorld {
         System.out.println("Player Ship does not exist");
         return 0;
     }
+    */
 
     private boolean decPShipLives(){
+        boolean quitGame = false;
         int numOfLives;
-        for(GameObject pShip: gameObjects) {
-            if(pShip instanceof PlayerShip) {
-                numOfLives = ((PlayerShip) pShip).getLives();
-                if (numOfLives > 1) {
-                    ((PlayerShip) pShip).setLives(numOfLives - 1);
-                    return true;
-                }
-                else{
-                    ((PlayerShip) pShip).setLives(numOfLives - 1);
-                    gameOver();
+        if(playerShipExists()) {
+            for (GameObject pShip : gameObjects) {
+                if (pShip instanceof PlayerShip) {
+                    numOfLives = ((PlayerShip) pShip).getLives();
+                    if (numOfLives > 1) {
+                        ((PlayerShip) pShip).setLives(numOfLives - 1);
+                        return true;
+                    } else {
+                        ((PlayerShip) pShip).setLives(numOfLives - 1);
+                        quitGame = true;
+                    }
                 }
             }
         }
-        System.out.println("Player Ship does not exist");
+        if(quitGame)
+            gameOver();
         return false;
     }
 
@@ -114,6 +117,7 @@ public class GameWorld {
         for(GameObject nps: gameObjects) {
             if(nps instanceof NonPlayerShip) {
                 gameObjects.remove(nps);
+                removeNonPlayerShipMissileLauncher();
                 System.out.println("Removed NON-PLAYER SHIP");
                 return true;
             }
@@ -146,6 +150,7 @@ public class GameWorld {
         return false;
     }
 
+    /*
     private boolean removePlayerShipMissileLauncher(){
         for(GameObject psMissileLauncher: gameObjects) {
             if(psMissileLauncher instanceof SteerableMissileLauncher) {
@@ -157,7 +162,7 @@ public class GameWorld {
         System.out.println("Could not remove Player Ship Missile Launcher");
         return false;
     }
-
+*/
     private boolean removeNonPlayerShipMissileLauncher(){
         for(GameObject nonPSMissileLauncher: gameObjects) {
             if(nonPSMissileLauncher instanceof MissileLauncher) {
@@ -224,7 +229,10 @@ public class GameWorld {
 
 
     private void gameOver(){
-        System.out.println("GAME OVER");
+        System.out.println("===========================================");
+        System.err.println("GAME OVER");
+        System.out.println("The player ship ran out of lives");
+        System.out.println("\tIf you would like to quit type 'Y'");
         gameObjects.removeAllElements();
     }
 
@@ -242,7 +250,9 @@ public class GameWorld {
     //y
     public void addNonPlayerShip(){
         NonPlayerShip nps = new NonPlayerShip(randomSize(), randomLocation(), randomHeading(), randomSpeed(), MAX_NPS_MISSILE);
+        MissileLauncher nonPSLauncher = nps.getNonPShipMissileLauncher();
         gameObjects.add(nps);
+        gameObjects.add(nonPSLauncher);
         System.out.println("A new NON-PLAYER SHIP has been created");
     }
 
@@ -367,6 +377,7 @@ public class GameWorld {
         }
         return nonPSLocation;
     }
+    /*
 
     private int getAsteroidIndex(){
         int asteroidIndex = 0;
@@ -377,6 +388,7 @@ public class GameWorld {
         }
         return asteroidIndex;
     }
+    */
 
     private int getMissileIndex(){
         int missileIndex = 0;
@@ -463,7 +475,7 @@ public class GameWorld {
         if( asteroidExists() & missileExists()) {
             removeAsteroid();
             removeMissile();
-            PLAYER_SCORE += ASTEROID_HIT_SCORE;
+            playerScore += ASTEROID_HIT_SCORE;
             System.out.println("Asteroid was HIT by PS MISSILE");
         }
         else
@@ -475,7 +487,7 @@ public class GameWorld {
         if(nonPShipExists() & missileExists()) {
             removeNPS();
             removeMissile();
-            PLAYER_SCORE += NPS_HIT_SCORE;
+            playerScore += NPS_HIT_SCORE;
             System.out.println("NON-PLAYER SHIP was hit by PS MISSILE");
         }
         else
@@ -614,7 +626,7 @@ public class GameWorld {
         }
         System.out.println("====================================================================\n"
                          + "======================= Current Game States: =======================\n"
-                         + "=======  Points: " + PLAYER_SCORE + "  =======  Missiles: " + missileCount + "  =======  Time: " + gameTicks + "  =======\n"
+                         + "=======  Points: " + playerScore + "  =======  Missiles: " + missileCount + "  =======  Time: " + gameTicks + "  =======\n"
                          + "====================================================================");
     }
 
@@ -631,8 +643,9 @@ public class GameWorld {
 
     //q
     public void quitGame(){
-        System.out.println("Exit the game");
-        //gw.exit();
+        System.out.println("Exiting the game");
+        gameObjects.removeAllElements();
+        System.exit(0);
     }
 
 }

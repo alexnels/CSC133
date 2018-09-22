@@ -39,7 +39,7 @@ public class Game extends Form{
                 myTextField.clear();
 
                 if(sCommand.isEmpty()){
-                    gw.printErrorStatement();
+                    System.err.println("ERROR: Invalid Input");
                     return;
                 }
 
@@ -138,11 +138,15 @@ public class Game extends Form{
                         break;
 
                     case 'q':
+                        System.out.println("Are you sure you would like to quit?\n\tType 'Y' to quit");
+                        break;
+
+                    case 'Y':
                         gw.quitGame();
                         break;
 
                     default:
-                        gw.printErrorStatement();
+                        System.err.println("ERROR: Invalid Input");
                 }
             }
         });

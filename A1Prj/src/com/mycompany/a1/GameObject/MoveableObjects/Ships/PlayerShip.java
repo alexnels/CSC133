@@ -1,5 +1,4 @@
 package com.mycompany.a1.GameObject.MoveableObjects.Ships;
-
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.geom.Point2D;
 import com.mycompany.a1.GameObject.MoveableObjects.ISteerable;
@@ -33,10 +32,6 @@ public class PlayerShip extends Ship implements ISteerable {
 
     public SteerableMissileLauncher getPlayerShipMissileLauncher() {
         return playerShipMissileLauncher;
-    }
-
-    public void setPlayerShipMissileLauncher(SteerableMissileLauncher playerShipMissileLauncher) {
-        this.playerShipMissileLauncher = playerShipMissileLauncher;
     }
 
     @Override

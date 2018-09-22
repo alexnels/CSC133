@@ -1,10 +1,5 @@
 package com.mycompany.a1.GameObject;
-
-
-
 import com.codename1.ui.geom.Point2D;
-
-import java.util.Random;
 
 public abstract class MoveableObject extends GameObject implements IMoveable {
 

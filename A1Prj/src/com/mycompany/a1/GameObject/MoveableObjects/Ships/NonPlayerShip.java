@@ -1,5 +1,4 @@
 package com.mycompany.a1.GameObject.MoveableObjects.Ships;
-
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.geom.Point2D;
 import com.mycompany.a1.GameObject.MoveableObjects.MissileLauncher;
@@ -25,9 +24,6 @@ public class NonPlayerShip extends Ship{
         return nonPShipMissileLauncher;
     }
 
-    public void setNonPShipMissileLauncher(MissileLauncher nonPShipMissileLauncher) {
-        this.nonPShipMissileLauncher = nonPShipMissileLauncher;
-    }
 
     public int getSize() {
         return size;

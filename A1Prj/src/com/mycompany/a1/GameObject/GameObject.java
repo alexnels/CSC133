@@ -3,10 +3,7 @@ package com.mycompany.a1.GameObject;
 import com.codename1.ui.geom.Point2D;
 import com.codename1.charts.util.ColorUtil;
 
-import java.util.Random;
-
 public abstract class GameObject {
-
 
     private int color;
     private Point2D location;
